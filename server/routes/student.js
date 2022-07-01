@@ -16,8 +16,7 @@ const AdminRoute = {
           errors: errors.array(),
         });
       }
-      const { fullName, email, password, address, type, status, level } =
-        req.body;
+      const { fullName, email, password, address, status, level } = req.body;
       const salt = await bcrypt.genSalt(10);
       let encryptedPassword = await bcrypt.hash(password, salt);
 
