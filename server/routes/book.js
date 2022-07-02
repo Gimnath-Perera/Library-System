@@ -1,5 +1,4 @@
 const { validationResult } = require('express-validator');
-const bcrypt = require('bcryptjs');
 require('dotenv').config();
 
 const response = require('../configurations/response');

@@ -34,3 +34,9 @@ exports.createbook = [
   check('status', 'status is required').not().isEmpty(),
   check('image', 'image is required').not().isEmpty(),
 ];
+
+exports.createbooking = [
+  check('status', 'status is required').not().isEmpty(),
+  check('student', 'student is required').not().isEmpty(),
+  check('book', 'book is required').not().isEmpty(),
+];
