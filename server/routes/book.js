@@ -13,21 +13,13 @@ const BookRoute = {
           errors: errors.array(),
         });
       }
-      const {
-        bookName,
-        author,
-        publishedYear,
-        numberOfBooks,
-        description,
-        status,
-        image,
-      } = req.body;
+      const { bookName, author, publishedYear, description, status, image } =
+        req.body;
 
       const newBook = {
         bookName,
         author,
         publishedYear,
-        numberOfBooks,
         description,
         status,
         image,

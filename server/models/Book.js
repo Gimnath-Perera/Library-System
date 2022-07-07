@@ -12,7 +12,7 @@ const Book = {
   }) => {
     return new Promise((resolve, reject) => {
       const query =
-        'INSERT INTO book (bookName, author, publishedYear, numberOfBooks, description, status, image) VALUES (?, ?, ?, ?, ?, ?, ?)';
+        'INSERT INTO book (bookName, author, publishedYear, description, status, image) VALUES (?, ?, ?, ?, ?, ?)';
       db.query(
         query,
         [
