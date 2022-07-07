@@ -1,5 +1,5 @@
 const BASE_URL = 'http://localhost:8080';
-const fetchBooks = async () => {
+const fetchStudents = async () => {
   let response = await fetch(`${BASE_URL}/api/admin/student`);
   let students = await response.json();
   const studentList = students?.data
@@ -100,4 +100,28 @@ const fetchBooks = async () => {
     );
 };
 
-window.onload = fetchBooks;
+const onStudentSubmit = async () => {
+  var data = readFormData();
+  const response = await fetch(`${BASE_URL}/api/admin/student`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  });
+  window.location.reload();
+};
+
+const readFormData = () => {
+  var formData = {};
+  formData['fullName'] = document.getElementById('fullName').value;
+  formData['email'] = document.getElementById('email').value;
+  formData['password'] = document.getElementById('password').value;
+  formData['address'] = document.getElementById('address').value;
+  formData['status'] = document.getElementById('status').value;
+  formData['level'] = document.getElementById('level').value;
+  formData['type'] = 'student';
+  return formData;
+};
+
+window.onload = fetchStudents;
