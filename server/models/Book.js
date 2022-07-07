@@ -5,7 +5,6 @@ const Book = {
     bookName,
     author,
     publishedYear,
-    numberOfBooks,
     description,
     status,
     image,
@@ -15,15 +14,7 @@ const Book = {
         'INSERT INTO book (bookName, author, publishedYear, description, status, image) VALUES (?, ?, ?, ?, ?, ?)';
       db.query(
         query,
-        [
-          bookName,
-          author,
-          publishedYear,
-          numberOfBooks,
-          description,
-          status,
-          image,
-        ],
+        [bookName, author, publishedYear, description, status, image],
         (err, results) => {
           if (err) {
             return reject(err);

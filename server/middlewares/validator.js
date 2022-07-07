@@ -29,7 +29,6 @@ exports.createbook = [
   check('bookName', 'bookName is required').not().isEmpty(),
   check('author', 'author is required').not().isEmpty(),
   check('publishedYear', 'publishedYear is required').not().isEmpty(),
-  check('numberOfBooks', 'numberOfBooks is required').not().isEmpty(),
   check('description', 'description is required').not().isEmpty(),
   check('status', 'status is required').not().isEmpty(),
   check('image', 'image is required').not().isEmpty(),

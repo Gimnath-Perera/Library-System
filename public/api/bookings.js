@@ -34,6 +34,10 @@ const fetchDashBoardData = async () => {
       <td class="px-4 py-3 text-sm">Mr. ${book?.author}</td>
 
       <td class="px-4 py-3 text-sm">${new Date(
+        book?.publishedYear
+      ).toDateString()}</td>
+
+      <td class="px-4 py-3 text-sm">${new Date(
         book?.createdAt
       ).toDateString()}</td>
       <td class="px-4 py-3 text-xs">
@@ -120,8 +124,15 @@ const fetchDashBoardData = async () => {
 };
 
 const onBookSubmit = async () => {
-  var formData = readFormData();
-  console.log('>>===>> >>===>> formData', formData);
+  var data = readFormData();
+  const response = await fetch(`${BASE_URL}/api/admin/book`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  });
+  window.location.reload();
 };
 
 const readFormData = () => {
