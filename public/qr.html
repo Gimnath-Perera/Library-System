@@ -13,7 +13,9 @@
       src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
       defer
     ></script>
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
     <script src="./assets/js/init-alpine.js"></script>
+    <script src="./api/qr.js"></script>
   </head>
   <body>
     <div
@@ -566,25 +568,30 @@
               Book Infomation
             </h4>
             <div
-              class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800"
+              class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800 flex items-center justify-between"
             >
-              <label class="block mt-4 text-sm">
-                <span class="text-gray-700 dark:text-gray-400">
-                  Please select your book
-                </span>
-                <select
-                  class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
-                >
-                  <option>📚 Absalom, Absalom! by Adam Roxwell</option>
-                  <option>📚 The House of Mirth by Edith Wharton</option>
-                  <option>📚 East of Eden by John Steinbeck</option>
-                  <option>📚 The Sun Also Rises by Ernest Hemingway</option>
-                </select>
-              </label>
-              <div class="my-6">
+              <div class="px-3 mb-6 md:mb-0" style="width: 80%">
+                <label class="block mt-4 text-sm">
+                  <span class="text-gray-700 dark:text-gray-400">
+                    Please select your book
+                  </span>
+                  <select
+                    class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
+                    id="book"
+                    name="book"
+                  >
+                    <option>Absalom, Absalom! by Adam Roxwell</option>
+                    <option>The House of Mirth by Edith Wharton</option>
+                    <option>East of Eden by John Steinbeck</option>
+                    <option>The Sun Also Rises by Ernest Hemingway</option>
+                  </select>
+                </label>
+              </div>
+              <div class="px-3">
                 <button
-                  class="flex items-center justify-between w-1/2 px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+                  class="mt-4 flex items-center justify-between w-1/2 px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
                   style="column-gap: 10px"
+                  onclick="generateQRCode()"
                 >
                   Generate QR code
                   <span>
@@ -614,6 +621,13 @@
                     </svg>
                   </span>
                 </button>
+              </div>
+            </div>
+            <div
+              class="px-4 py-4 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800 flex items-center justify-center"
+            >
+              <div id="qrcode-container">
+                <div id="qrcode" class="qrcode"></div>
               </div>
             </div>
           </div>
