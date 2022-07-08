@@ -20,6 +20,7 @@ router.delete('/admin/student/:id', student.deleteStudent);
 router.post('/admin/book', validator.createbook, book.createBooks);
 router.get('/admin/book', book.getAllBooks);
 router.delete('/admin/book/:id', book.deleteBook);
+router.get('/student/book/:studentId', book.getAllBooksByStudent);
 
 //booking routes
 router.post('/admin/booking', validator.createbooking, booking.createBooking);

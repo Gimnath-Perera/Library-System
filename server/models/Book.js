@@ -73,6 +73,18 @@ const Book = {
       });
     });
   },
+  getAllBooksByStudent: (studentId) => {
+    return new Promise((resolve, reject) => {
+      const query = `SELECT book.id as id, bookName, author, publishedYear, description, book.status as status, image  FROM book, booking, book_booking, user WHERE user.id = booking.user_id AND booking.id = book_booking.booking_id AND book_booking.book_id = book.id AND user.id = ${studentId};`;
+      db.query(query, null, (err, results) => {
+        if (err) {
+          return reject(err);
+        }
+
+        return resolve(results);
+      });
+    });
+  },
 };
 
 module.exports = Book;

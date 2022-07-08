@@ -86,6 +86,26 @@ const BookRoute = {
       );
     }
   },
+  getAllBooksByStudent: async (req, res) => {
+    try {
+      const { studentId } = req.params;
+      const result = await Book.getAllBooksByStudent(studentId);
+
+      return response.success(
+        req,
+        res,
+        result,
+        'Book list data fetched successfully'
+      );
+    } catch (err) {
+      return response.fail(
+        req,
+        res,
+        response.messages.server_error,
+        err.message
+      );
+    }
+  },
 };
 
 module.exports = BookRoute;
