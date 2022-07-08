@@ -3,6 +3,7 @@ require('dotenv').config();
 
 const response = require('../configurations/response');
 const Booking = require('../models/Booking');
+const Book = require('../models/Book');
 
 const BookingRoute = {
   createBooking: async (req, res) => {
@@ -13,18 +14,23 @@ const BookingRoute = {
           errors: errors.array(),
         });
       }
-      const { status, student, book } = req.body;
+      const { student, book } = req.body;
 
       const newBooking = {
         student,
-        status,
+        status: 'Issued',
       };
-
+      //create a record in `booking`
       const booking = await Booking.createBooking(newBooking);
+
+      //create a record in `book_booking`
       const bookingBook = await Booking.recordInBookBookings({
         booking: booking.insertId,
         book,
       });
+
+      //update book status in `book`
+      const updateBook = await Book.updateBook('Issued', book);
 
       return response.success(
         req,

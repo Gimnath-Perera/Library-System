@@ -61,6 +61,18 @@ const Book = {
       });
     });
   },
+  updateBook: (status, id) => {
+    return new Promise((resolve, reject) => {
+      const query = 'UPDATE book SET status = ? WHERE id = ?';
+      db.query(query, [status, id], (err, results) => {
+        if (err) {
+          return reject(err);
+        }
+
+        return resolve(results);
+      });
+    });
+  },
 };
 
 module.exports = Book;

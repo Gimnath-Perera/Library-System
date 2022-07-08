@@ -2,11 +2,15 @@ const BASE_URL = 'http://localhost:8080';
 const fetchBooks = async () => {
   let response = await fetch(`${BASE_URL}/api/admin/book`);
   let books = await response.json();
-  const bookList = books?.data
+
+  let availableBooks = books.data.filter((book) => book.status === 'Available');
+  const bookList = availableBooks
     .map(
       (book) => `
   <div
     class="max-w-xs p-6 rounded-md shadow-md dark:bg-gray-900 dark:text-gray-50"
+    style='cursor:pointer;'
+    onclick='handleBookSelection(${book?.id});'
   >
     <img
       src=${book?.image}
@@ -35,6 +39,27 @@ const fetchBooks = async () => {
   document
     .querySelector('#book-container')
     .insertAdjacentHTML('afterbegin', bookList);
+};
+
+const handleBookSelection = async (bookId) => {
+  const userResponse = confirm('Do you want to borrow this book?');
+  const user = JSON.parse(localStorage.getItem('user'));
+  if (!userResponse) return;
+
+  const payload = {
+    student: user?.id,
+    book: bookId,
+  };
+  const response = await fetch(`${BASE_URL}/api/admin/booking`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+  });
+
+  const result = await response.json();
+  window.location.reload();
 };
 
 window.onload = fetchBooks;

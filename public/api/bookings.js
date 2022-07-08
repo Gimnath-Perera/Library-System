@@ -103,10 +103,10 @@ const fetchDashBoardData = async () => {
 
   const studentCount = students.data.length;
   const issuedBookCount = books?.data?.filter(
-    (book) => book.status === 'issued'
+    (book) => book.status === 'Issued'
   ).length;
   const availableBookCount = books?.data?.filter(
-    (book) => book.status === 'available'
+    (book) => book.status === 'Available'
   ).length;
 
   document
