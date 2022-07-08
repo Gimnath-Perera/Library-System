@@ -18,6 +18,9 @@ const onLoginSubmit = async () => {
     } else {
       window.location.href = '/public/books.html';
     }
+  } else {
+    document.getElementById('error-text').innerHTML =
+      'Invalid username or password';
   }
 };
 
