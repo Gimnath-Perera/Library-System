@@ -565,18 +565,29 @@
               class="px-4 py-4 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800 flex items-center justify-center flex-col"
             >
               <div style="min-width: 750px" id="reader"></div>
-              <h4>SCAN RESULT</h4>
-              <div id="result">Result Here</div>
             </div>
           </div>
         </main>
       </div>
     </div>
     <script type="text/javascript">
-      function onScanSuccess(qrCodeMessage) {
-        document.getElementById('result').innerHTML =
-          '<span class="result">' + qrCodeMessage + '</span>';
-      }
+      const onScanSuccess = async (qrCodeMessage) => {
+        const BASE_URL = 'http://localhost:8080';
+
+        const result = await fetch(
+          `${BASE_URL}/api/admin/booking/${qrCodeMessage}`,
+          {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ book: qrCodeMessage }),
+          }
+        );
+
+        alert('Book has been returned successfully');
+        window.location.reload();
+      };
 
       function onScanError(errorMessage) {}
       var html5QrcodeScanner = new Html5QrcodeScanner('reader', {
