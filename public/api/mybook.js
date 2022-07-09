@@ -1,6 +1,8 @@
 const BASE_URL = 'http://localhost:8080';
 const fetchMyBooks = async () => {
-  let response = await fetch(`${BASE_URL}/api/student/book/7`);
+  const user = JSON.parse(localStorage.getItem('user'));
+
+  let response = await fetch(`${BASE_URL}/api/student/book/${user.id}`);
   let books = await response.json();
   const bookList = books?.data
     .map(

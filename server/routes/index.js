@@ -24,5 +24,10 @@ router.get('/student/book/:studentId', book.getAllBooksByStudent);
 
 //booking routes
 router.post('/admin/booking', validator.createbooking, booking.createBooking);
+router.put(
+  '/admin/booking/:bookId',
+  validator.returnBooking,
+  booking.returnBooking
+);
 
 module.exports = router;

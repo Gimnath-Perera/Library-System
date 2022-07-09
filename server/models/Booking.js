@@ -26,6 +26,30 @@ const Booking = {
       });
     });
   },
+  getBookingByBookId: (bookId) => {
+    return new Promise((resolve, reject) => {
+      const query = 'SELECT * FROM book_booking WHERE book_id = ?';
+      db.query(query, [bookId], (err, results) => {
+        if (err) {
+          return reject(err);
+        }
+
+        return resolve(results);
+      });
+    });
+  },
+  returnBooking: (bookingId) => {
+    return new Promise((resolve, reject) => {
+      const query = 'UPDATE booking SET status = ? WHERE id = ?';
+      db.query(query, ['Returned', bookingId], (err, results) => {
+        if (err) {
+          return reject(err);
+        }
+
+        return resolve(results);
+      });
+    });
+  },
 };
 
 module.exports = Booking;

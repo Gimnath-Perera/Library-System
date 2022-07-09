@@ -38,3 +38,5 @@ exports.createbooking = [
   check('student', 'student is required').not().isEmpty(),
   check('book', 'book is required').not().isEmpty(),
 ];
+
+exports.returnBooking = [check('book', 'book is required').not().isEmpty()];

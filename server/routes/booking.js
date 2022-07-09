@@ -49,6 +49,34 @@ const BookingRoute = {
       );
     }
   },
+  returnBooking: async (req, res) => {
+    try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return response.fail(req, res, response.messages.invalid_params, {
+          errors: errors.array(),
+        });
+      }
+      const { bookId } = req.params;
+      const bookingIdResponse = await Booking.getBookingByBookId(bookId);
+
+      //update `booking` table
+      const updatedBooking = await Booking.returnBooking(
+        bookingIdResponse[0].booking_id
+      );
+      // update `book` table
+      const updatedBook = Book.updateBook('Available', bookId);
+
+      return response.success(req, res, {}, 'Book returned successfully');
+    } catch (err) {
+      return response.fail(
+        req,
+        res,
+        response.messages.server_error,
+        err.message
+      );
+    }
+  },
 };
 
 module.exports = BookingRoute;

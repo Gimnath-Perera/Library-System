@@ -94,7 +94,7 @@ const BookRoute = {
       return response.success(
         req,
         res,
-        result,
+        [...new Map(result.map((v) => [v.id, v])).values()],
         'Book list data fetched successfully'
       );
     } catch (err) {
