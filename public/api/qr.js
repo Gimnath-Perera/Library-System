@@ -6,5 +6,6 @@ function generateQRCode() {
   qrcodeContainer.innerHTML = '';
   new QRCode(qrcodeContainer, book);
 
+  document.getElementById('qrcode-base').style.display = 'flex';
   document.getElementById('qrcode-container').style.display = 'block';
 }
