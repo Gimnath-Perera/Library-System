@@ -1,4 +1,5 @@
 const video = document.getElementById('video');
+const BASE_URL = 'http://localhost:8080';
 
 Promise.all([
   faceapi.nets.tinyFaceDetector.loadFromUri('../models'),
@@ -45,19 +46,20 @@ video.addEventListener('play', () => {
           label: result.toString(),
         });
         drawBox.draw(canvas);
+        return faceVerifyLogin(result.toString());
       });
     }
   }, 200);
 });
 
 function loadLabeledImages() {
-  const labels = ['Gimnath', 'Nickol'];
+  const labels = ['nick@exmaple.com', 'student@lms.com', 'zebr@example.com'];
   return Promise.all(
     labels.map(async (label) => {
       const descriptions = [];
       for (let i = 1; i <= 1; i++) {
         const img = await faceapi.fetchImage(
-          `http://localhost:8080/img/${label}/${i}.jpg`
+          `${BASE_URL}/img/${label}/${i}.jpg`
         );
 
         const detections = await faceapi
@@ -67,8 +69,29 @@ function loadLabeledImages() {
 
         descriptions.push(detections.descriptor);
       }
-
       return new faceapi.LabeledFaceDescriptors(label, descriptions);
     })
   );
 }
+
+const faceVerifyLogin = async (email) => {
+  const response = await fetch(`${BASE_URL}/api/face-verify`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ email: email.split(' ')[0] }),
+  });
+  const result = await response.json();
+  if (result?.status) {
+    localStorage.setItem('token', JSON.stringify(result?.data?.token));
+    localStorage.setItem('user', JSON.stringify(result?.data?.user));
+    if (result?.data?.user?.type == 'admin') {
+      window.location.href = '/public/index.html';
+    } else {
+      window.location.href = '/public/books.html';
+    }
+  } else {
+    alert('Face verificaition failed,Try again or use email to login');
+  }
+};
