@@ -98,5 +98,62 @@ const AuthRoutes = {
       );
     }
   },
+
+  faceVerify: async (req, res) => {
+    try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return response.fail(req, res, response.messages.invalid_params, {
+          errors: errors.array(),
+        });
+      }
+
+      const { email } = req.body;
+
+      if (email == 'unknown') {
+        return response.fail(
+          req,
+          res,
+          response.messages.server_error,
+          'Invalid credentials'
+        );
+      }
+
+      const user = await User.getUserByEmail(email);
+
+      if (!user) {
+        return response.fail(
+          req,
+          res,
+          response.messages.server_error,
+          'Invalid credentials'
+        );
+      }
+
+      const payload = {
+        user: {
+          id: user.id,
+          type: user.type,
+        },
+      };
+
+      jwt.sign(
+        payload,
+        process.env.JWT_SECRET,
+        { expiresIn: 3600 },
+        (err, token) => {
+          if (err) throw err;
+          return response.success(req, res, { token, user }, 'Authenticated');
+        }
+      );
+    } catch (err) {
+      return response.fail(
+        req,
+        res,
+        response.messages.server_error,
+        err.message
+      );
+    }
+  },
 };
 module.exports = AuthRoutes;

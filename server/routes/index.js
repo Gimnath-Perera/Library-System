@@ -9,6 +9,7 @@ const booking = require('./booking');
 
 //public routes
 router.post('/auth', validator.authenticate, auth.authenticate);
+router.post('/face-verify', validator.faceVerify, auth.faceVerify);
 router.post('/auth/register', validator.register, auth.register);
 
 //student routes

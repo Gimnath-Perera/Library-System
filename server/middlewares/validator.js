@@ -5,6 +5,8 @@ exports.authenticate = [
   check('password', 'password is required').not().isEmpty(),
 ];
 
+exports.faceVerify = [check('email', 'email is required').not().isEmpty()];
+
 exports.register = [
   check('fullName', 'fullName is required').not().isEmpty(),
   check('email', 'email is required').not().isEmpty(),
