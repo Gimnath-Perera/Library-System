@@ -35,6 +35,7 @@ app.all('/*', (req, res, next) => {
 });
 
 app.use('/api/', routes);
+app.use(express.static(__dirname + '/public'));
 
 app.use((req, res, next) => {
   response.fail(req, res, response.messages.invalid_url);
